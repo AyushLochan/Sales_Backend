@@ -1,4 +1,3 @@
-// backend/api/index.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -7,18 +6,16 @@ import salesRoutes from "../src/routes/salesRoutes.js";
 
 dotenv.config();
 
-// create Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// connect to Mongo (once, global)
 connectDB();
 
-// mount your existing routes
-app.use("/api/sales", salesRoutes);
+app.get("/", (req, res) => {
+  res.send("TruEstate Sales API");
+});
 
-// ❗ IMPORTANT: NO app.listen() here
-// On Vercel we just export the app
+app.use("/api/sales", salesRoutes);
 
 export default app;
